@@ -14,9 +14,6 @@ devDependencies:
   '@babel/preset-env':
     specifier: ^7.26.0
     version: 7.26.0(@babel/core@7.26.0)
-  '@babel/preset-flow':
-    specifier: ^7.25.9
-    version: 7.25.9(@babel/core@7.26.0)
   '@babel/preset-react':
     specifier: ^7.26.3
     version: 7.26.3(@babel/core@7.26.0)
@@ -363,16 +360,6 @@ packages:
       '@babel/core': 7.26.0
     dev: true
 
-  /@babel/plugin-syntax-flow@7.26.0(@babel/core@7.26.0):
-    resolution: {integrity: sha512-B+O2DnPc0iG+YXFqOxv2WNuNU97ToWjOomUQ78DouOENWUaM5sVrmet9mcomUGQFwpJd//gvUagXBSdzO1fRKg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.26.0
-      '@babel/helper-plugin-utils': 7.25.9
-    dev: true
-
   /@babel/plugin-syntax-import-assertions@7.26.0(@babel/core@7.26.0):
     resolution: {integrity: sha512-QCWT5Hh830hK5EQa7XzuqIkQU9tT/whqbDz7kuaZMHFl1inRRg7JnuAEOQ0Ur0QUl0NufCk1msK2BeY79Aj/eg==}
     engines: {node: '>=6.9.0'}
@@ -596,17 +583,6 @@ packages:
     dependencies:
       '@babel/core': 7.26.0
       '@babel/helper-plugin-utils': 7.25.9
-    dev: true
-
-  /@babel/plugin-transform-flow-strip-types@7.25.9(@babel/core@7.26.0):
-    resolution: {integrity: sha512-/VVukELzPDdci7UUsWQaSkhgnjIWXnIyRpM02ldxaVoFK96c41So8JcKT3m0gYjyv7j5FNPGS5vfELrWalkbDA==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.26.0
-      '@babel/helper-plugin-utils': 7.25.9
-      '@babel/plugin-syntax-flow': 7.26.0(@babel/core@7.26.0)
     dev: true
 
   /@babel/plugin-transform-for-of@7.25.9(@babel/core@7.26.0):
@@ -1121,18 +1097,6 @@ packages:
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /@babel/preset-flow@7.25.9(@babel/core@7.26.0):
-    resolution: {integrity: sha512-EASHsAhE+SSlEzJ4bzfusnXSHiU+JfAYzj+jbw2vgQKgq5HrUr8qs+vgtiEL5dOH6sEweI+PNt2D7AqrDSHyqQ==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.26.0
-      '@babel/helper-plugin-utils': 7.25.9
-      '@babel/helper-validator-option': 7.25.9
-      '@babel/plugin-transform-flow-strip-types': 7.25.9(@babel/core@7.26.0)
     dev: true
 
   /@babel/preset-modules@0.1.6-no-external-plugins(@babel/core@7.26.0):
