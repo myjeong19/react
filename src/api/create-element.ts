@@ -46,6 +46,7 @@ export const createElement = (
   }
 
   return {
+    type: type && 'fragment' !== type ? type : undefined,
     key: key ? key : null,
     ref: ref ? ref : null,
     props: {

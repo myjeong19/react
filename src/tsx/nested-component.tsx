@@ -9,7 +9,7 @@ export const NestedComponent = () => {
         <strong>Section</strong>
         <article>
           Article
-          <p>Paragraph</p>
+          <p></p>
         </article>
       </section>
     </main>
