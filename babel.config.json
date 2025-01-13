@@ -9,14 +9,14 @@
           "chrome": "67",
           "safari": "11.1"
         },
-        "useBuiltIns": "usage",
-        "corejs": "3.6.5"
+        "modules": false
       }
     ],
     [
       "@babel/preset-react",
       {
-        "runtime": "automatic"
+        "runtime": "automatic",
+        "importSource": "@src/api"
       }
     ],
     "@babel/preset-typescript"
