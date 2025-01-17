@@ -1,24 +1,28 @@
-type Type =
-  | keyof HTMLElementTagNameMap
-  | ((props: Props | null, ...children: unknown[]) => CreateElementResult)
-  | 'fragment';
+type Element = keyof HTMLElementTagNameMap;
+type Component = (props: InputProps | null, ...children: unknown[]) => CreateElementResult;
+type Type = Element | Component | 'fragment';
 
-type Props = {
+type InputProps = {
   key?: string | null;
   ref?: unknown | null;
   [key: string]: unknown;
 };
 
+type OutputProps = {
+  [key: string]: unknown;
+  children?: unknown | unknown[];
+};
+
 type CreateElementResult = {
   type?: Type;
-  props: Props | null;
+  props: OutputProps;
   key?: string | null;
   ref?: unknown | null;
 };
 
 export const createElement = (
   type: Type,
-  props: Props | null,
+  props: InputProps | null,
   ...children: unknown[]
 ): CreateElementResult => {
   const { key, ref, ...restProps } = props || {};
