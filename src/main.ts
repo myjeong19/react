@@ -19,15 +19,11 @@ const customFragmentComponent = createElement(
   createElement('div', { className: 'div' }, 'div')
 );
 
-const tsxComponent = createElement(Component, {
-  className: 'Component',
-});
+const tsxComponent = Component();
 
-const tsxNestedComponent = createElement(NestedComponent, {
-  className: 'NestedComponent',
-});
+const tsxNestedComponent = NestedComponent();
 
-const tsxFragmentComponent = createElement(FragmentComponent, null);
+const tsxFragmentComponent = FragmentComponent();
 
 const transformJSON = (json: unknown) => {
   return JSON.stringify(json, null, 2);
