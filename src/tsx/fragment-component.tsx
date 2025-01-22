@@ -2,7 +2,7 @@ import { createElement, Fragment } from '@src/api';
 
 export const FragmentComponent = () => (
   <>
-    <h1>h1</h1>
-    <div>div</div>
+    <h1>Fragment Nested H1 Element</h1>
+    <div>Fragment Nested Div Element</div>
   </>
 );

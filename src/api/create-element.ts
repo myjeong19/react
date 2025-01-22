@@ -1,8 +1,8 @@
 type Element = keyof HTMLElementTagNameMap;
 type Component = (props: VirtualDOMInputProps | null, ...children: unknown[]) => VirtualDOM;
-type CreateType = Element | Component | 'fragment';
+export type RenderType = Element | Component | 'fragment';
 
-export type VirtualDOMInputProps = {
+type VirtualDOMInputProps = {
   key?: string | null;
   ref?: unknown | null;
   [key: string]: unknown;
@@ -14,14 +14,14 @@ export type VirtualDOMProps = {
 };
 
 export type VirtualDOM = {
-  type?: CreateType;
+  type?: RenderType;
   props: VirtualDOMProps;
   key?: string | null;
   ref?: unknown | null;
 };
 
 export const createElement = (
-  type: CreateType,
+  type: RenderType,
   props: VirtualDOMInputProps | null,
   ...children: unknown[]
 ): VirtualDOM => {
