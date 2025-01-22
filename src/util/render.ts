@@ -49,6 +49,10 @@ const renderHandlers = {
 
     Object.entries(props || {}).forEach(([key, value]) => {
       if (key === 'children') return;
+      if (key === 'className') {
+        element.setAttribute('class', String(value));
+        return;
+      }
       if (key.startsWith('on') && typeof value === 'function') {
         element.addEventListener(key.toLowerCase().substring(2), value as EventListener);
         return;
