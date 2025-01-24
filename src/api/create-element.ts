@@ -1,30 +1,30 @@
-type Element = keyof HTMLElementTagNameMap;
-type Component = (props: InputProps | null, ...children: unknown[]) => CreateElementResult;
-type Type = Element | Component | 'fragment';
+export type Element = keyof HTMLElementTagNameMap;
+export type Component = (props: VirtualDOMInputProps | null, ...children: unknown[]) => VirtualDOM;
+export type RenderType = Element | Component | 'fragment';
 
-type InputProps = {
+type VirtualDOMInputProps = {
   key?: string | null;
   ref?: unknown | null;
   [key: string]: unknown;
 };
 
-type OutputProps = {
+export type VirtualDOMProps = {
   [key: string]: unknown;
   children?: unknown | unknown[];
 };
 
-type CreateElementResult = {
-  type?: Type;
-  props: OutputProps;
+export type VirtualDOM = {
+  type?: RenderType;
+  props: VirtualDOMProps;
   key?: string | null;
   ref?: unknown | null;
 };
 
 export const createElement = (
-  type: Type,
-  props: InputProps | null,
+  type: RenderType,
+  props: VirtualDOMInputProps | null,
   ...children: unknown[]
-): CreateElementResult => {
+): VirtualDOM => {
   const { key, ref, ...restProps } = props || {};
 
   if (typeof type === 'function') {

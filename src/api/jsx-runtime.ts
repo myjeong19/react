@@ -1,4 +1,4 @@
-import { createElement } from '@src/api/create-element';
+import { createElement } from '@src/api';
 
 export const jsx = createElement;
 export const jsxs = createElement;
