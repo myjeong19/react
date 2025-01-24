@@ -1,30 +1,33 @@
-import type { VirtualDOM, VirtualDOMProps } from '@src/api';
+import type { VirtualDOM, VirtualDOMProps, Element, Component } from '@src/api';
 
-const isTextContent = (children: unknown): children is string | number => {
-  return typeof children === 'string' || typeof children === 'number';
-};
+const normalizeChildren = (children: unknown) =>
+  Array.isArray(children) ? children : children ? [children] : [];
 
-const normalizeChildren = (children: unknown) => {
-  if (Array.isArray(children)) {
-    return children;
-  }
-  return children ? [children] : [];
-};
-
-const createTextNode = (content: string | number) => document.createTextNode(String(content));
-
-const createChildNode = (child: unknown, parent: Node, rootElement: HTMLElement) => {
+const createChildNode = (child: unknown, parent: Node, rootElement: HTMLElement): void => {
   if (child == null) return;
 
-  const node = isTextContent(child)
-    ? createTextNode(child)
-    : render(rootElement, child as VirtualDOM);
+  const node =
+    typeof child === 'string' || typeof child === 'number'
+      ? document.createTextNode(String(child))
+      : render(rootElement, child as VirtualDOM);
 
   parent.appendChild(node);
 };
 
-const renderChildren = (rootElement: HTMLElement, parent: Node, children: unknown) =>
+const renderChildren = (rootElement: HTMLElement, parent: Node, children: unknown): void =>
   normalizeChildren(children).forEach(child => createChildNode(child, parent, rootElement));
+
+const setElementAttribute = (element: HTMLElement, key: string, value: unknown) => {
+  if (key === 'className') {
+    element.setAttribute('class', String(value));
+    return;
+  }
+  if (key.startsWith('on') && typeof value === 'function') {
+    element.addEventListener(key.toLowerCase().substring(2), value as EventListener);
+    return;
+  }
+  element.setAttribute(key, String(value));
+};
 
 const renderHandlers = {
   text: (props: unknown) => document.createTextNode(String(props)),
@@ -35,29 +38,17 @@ const renderHandlers = {
     return fragment;
   },
 
-  function: (rootElement: HTMLElement, props: VirtualDOMProps, type: Function) => {
+  function: (rootElement: HTMLElement, props: VirtualDOMProps, type: Component) => {
     const result = type(props, props.children);
     return render(rootElement, result);
   },
 
-  element: (
-    rootElement: HTMLElement,
-    props: VirtualDOMProps,
-    type: keyof HTMLElementTagNameMap
-  ) => {
+  element: (rootElement: HTMLElement, props: VirtualDOMProps = {}, type: Element) => {
     const element = document.createElement(type);
 
     Object.entries(props || {}).forEach(([key, value]) => {
       if (key === 'children') return;
-      if (key === 'className') {
-        element.setAttribute('class', String(value));
-        return;
-      }
-      if (key.startsWith('on') && typeof value === 'function') {
-        element.addEventListener(key.toLowerCase().substring(2), value as EventListener);
-        return;
-      }
-      element.setAttribute(key, String(value));
+      setElementAttribute(element, key, value);
     });
 
     renderChildren(rootElement, element, props.children);
@@ -65,7 +56,7 @@ const renderHandlers = {
   },
 };
 
-export const render = (rootElement: HTMLElement, virtualDOM: VirtualDOM): Node => {
+const setNode = (rootElement: HTMLElement, virtualDOM: VirtualDOM) => {
   const { type, props } = virtualDOM;
   let node: Node;
 
@@ -78,6 +69,12 @@ export const render = (rootElement: HTMLElement, virtualDOM: VirtualDOM): Node =
   } else {
     node = renderHandlers.element(rootElement, props, type);
   }
+
+  return node;
+};
+
+export const render = (rootElement: HTMLElement, virtualDOM: VirtualDOM): Node => {
+  const node = setNode(rootElement, virtualDOM);
 
   rootElement.appendChild(node);
   return node;

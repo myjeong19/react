@@ -1,5 +1,5 @@
-type Element = keyof HTMLElementTagNameMap;
-type Component = (props: VirtualDOMInputProps | null, ...children: unknown[]) => VirtualDOM;
+export type Element = keyof HTMLElementTagNameMap;
+export type Component = (props: VirtualDOMInputProps | null, ...children: unknown[]) => VirtualDOM;
 export type RenderType = Element | Component | 'fragment';
 
 type VirtualDOMInputProps = {
